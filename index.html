@@ -40,7 +40,6 @@
             position: relative;
         }
 
-        /* Fondo animado con partículas */
         .bg-particles {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 0; overflow: hidden;
@@ -61,10 +60,7 @@
             padding: 15px; min-height: 100vh; display: flex; flex-direction: column;
         }
 
-        /* Header */
-        .header {
-            text-align: center; padding: 25px 0 15px;
-        }
+        .header { text-align: center; padding: 25px 0 15px; }
         .header h1 {
             font-size: 2.1rem; font-weight: 700;
             background: linear-gradient(90deg, var(--x-color), var(--o-color), var(--accent));
@@ -76,16 +72,13 @@
         .hearts { font-size: 1.6rem; animation: heartbeat 1.4s infinite; display: inline-block; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
 
-        /* Glass Card */
         .glass-card {
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border-radius: 28px; border: 1px solid var(--glass-border);
             padding: 28px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.45);
             margin-bottom: 18px; transition: transform 0.3s, box-shadow 0.3s;
         }
-        .glass-card:hover { box-shadow: 0 15px 50px rgba(233, 69, 96, 0.25); }
 
-        /* Lobby */
         .lobby-section { display: block; }
         .section-title {
             text-align: center; font-weight: 600; margin-bottom: 8px;
@@ -96,7 +89,6 @@
             margin-bottom: 22px; line-height: 1.4;
         }
 
-        /* Room Codes Grid */
         .room-codes {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 18px 0;
         }
@@ -116,7 +108,7 @@
             box-shadow: 0 0 25px var(--primary-glow); border-color: transparent;
         }
 
-        /* Generated Room Display */
+        /* ===== ÁREA DE CÓDIGO GENERADO (OCULTA INICIALMENTE) ===== */
         .generated-room {
             display: none; margin: 20px 0; padding: 20px;
             background: linear-gradient(135deg, rgba(233,69,96,0.15), rgba(0,217,255,0.1));
@@ -129,9 +121,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .creating-status {
+            display: none; text-align: center; padding: 15px; margin-bottom: 15px;
+            background: rgba(0,217,255,0.15); border-radius: 15px;
+            border: 1px solid var(--accent); color: var(--accent);
+            font-weight: 500; animation: pulse 1.5s infinite;
+        }
+        .creating-status.show { display: block; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
         .generated-label {
             font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;
-            display: flex; align-items: center; gap: 6px;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
         }
 
         .room-code-display {
@@ -141,7 +142,7 @@
             flex: 1; background: rgba(0,0,0,0.35); padding: 16px 20px;
             border-radius: 16px; font-size: 1.4rem; font-weight: 700;
             letter-spacing: 4px; text-align: center; border: 1px solid var(--glass-border);
-            font-family: 'Poppins', monospace;
+            font-family: 'Poppins', monospace; color: var(--primary);
         }
         .copy-btn {
             width: 50px; height: 50px; border-radius: 16px; border: none;
@@ -164,7 +165,6 @@
         }
         .share-hint i { color: var(--accent); margin-right: 5px; }
 
-        /* Input Group */
         .input-group { margin: 18px 0; }
         .input-group label {
             display: block; margin-bottom: 10px; color: var(--text-muted);
@@ -181,7 +181,6 @@
         }
         .custom-input::placeholder { letter-spacing: 1px; color: var(--text-muted); }
 
-        /* Buttons */
         .btn {
             width: 100%; padding: 16px; border: none; border-radius: 18px;
             font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600;
@@ -200,10 +199,12 @@
         .btn-secondary:hover { background: var(--glass); border-color: var(--glass-highlight); }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
-        /* Loading State */
+        /* ===== LOADING "ACCEDIENDO A LA SALA" ===== */
         .loading-overlay {
             display: none; flex-direction: column; align-items: center; justify-content: center;
             padding: 30px 20px; text-align: center; animation: fadeIn 0.3s;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10,10,20,0.95); border-radius: 28px; z-index: 10;
         }
         .loading-overlay.show { display: flex; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -216,11 +217,16 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
         .loading-text {
-            font-size: 1.1rem; font-weight: 500; margin-bottom: 8px;
+            font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; color: var(--primary);
         }
         .loading-subtext { color: var(--text-muted); font-size: 0.85rem; }
+        .loading-room { 
+            margin-top: 15px; padding: 8px 16px; background: var(--glass);
+            border-radius: 12px; font-family: monospace; letter-spacing: 2px;
+            color: var(--accent);
+        }
 
-        /* Game Area */
+        /* ===== GAME AREA ===== */
         .game-area { display: none; }
 
         .player-info {
@@ -239,10 +245,8 @@
             content: '●'; display: block; color: var(--success); font-size: 0.75rem;
             margin-top: 6px; animation: pulse 1.2s infinite;
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .player-name { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
 
-        /* Status Bar */
         .status-bar {
             text-align: center; padding: 16px 20px; background: rgba(0,0,0,0.3);
             border-radius: 18px; margin: 18px 0; font-size: 1.05rem; font-weight: 600;
@@ -260,7 +264,6 @@
             to { text-shadow: 0 0 35px var(--success), 0 0 60px var(--success); }
         }
 
-        /* Board */
         .game-board {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
             padding: 22px; margin: 22px 0;
@@ -295,7 +298,7 @@
             50% { box-shadow: 0 0 50px rgba(0,255,136,0.6); }
         }
 
-        /* Chat */
+        /* ===== CHAT ===== */
         .chat-section { display: none; margin-top: 12px; }
         .chat-toggle {
             display: flex; align-items: center; justify-content: space-between;
@@ -391,7 +394,6 @@
         .chat-send:hover { transform: scale(1.08); box-shadow: 0 7px 25px var(--primary-glow); }
         .chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* Footer */
         .footer { text-align: center; padding: 25px 20px 30px; margin-top: auto; }
         .credits {
             font-size: 0.82rem; color: var(--text-muted); letter-spacing: 2.5px;
@@ -400,7 +402,6 @@
         .credits span { color: var(--primary); font-weight: 700; }
         .love-icon { color: var(--primary); animation: heartbeat 1.4s infinite; display: inline-block; margin: 0 3px; }
 
-        /* Modal */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
@@ -427,7 +428,6 @@
             font-family: 'Poppins', monospace;
         }
 
-        /* Responsive */
         @media (max-width: 385px) {
             .header h1 { font-size: 1.85rem; }
             .cell { font-size: 3.2rem; }
@@ -435,29 +435,25 @@
             .room-code-value { font-size: 1.25rem; letter-spacing: 3px; }
         }
 
-        /* Animaciones de entrada */
         .fade-in { animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-    <!-- Partículas de fondo -->
     <div class="bg-particles" id="particles"></div>
 
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>XO <span class="hearts">❤️</span> Online</h1>
             <p>Juega y chatea con tu persona especial</p>
         </div>
 
-        <!-- Lobby -->
+        <!-- LOBBY -->
         <div id="lobby" class="lobby-section fade-in">
             <div class="glass-card">
                 <h3 class="section-title"><i class="fas fa-key"></i> Códigos BER & MAT</h3>
                 <p class="section-subtitle">Selecciona o crea tu código personalizado para jugar</p>
                 
-                <!-- Selector de códigos -->
                 <div class="room-codes">
                     <button class="room-code-btn" onclick="selectRoomCode('BER-MAT')">
                         <i class="fas fa-heart"></i> BER-MAT
@@ -473,7 +469,12 @@
                     </button>
                 </div>
 
-                <!-- Área de código generado (oculta inicialmente) -->
+                <!-- Estado "Creando..." -->
+                <div class="creating-status" id="creatingStatus">
+                    <i class="fas fa-spinner fa-spin"></i> BER está creando la sala...
+                </div>
+
+                <!-- Código generado (OCULTO hasta crear) -->
                 <div class="generated-room" id="generatedRoom">
                     <div class="generated-label">
                         <i class="fas fa-check-circle" style="color: var(--success);"></i>
@@ -487,7 +488,7 @@
                     </div>
                     <p class="share-hint">
                         <i class="fas fa-share-alt"></i>
-                        Envía este código a tu novia para que se una a tu partida
+                        Envía este código a tu novia para que se una
                     </p>
                 </div>
 
@@ -508,19 +509,19 @@
                     <i class="fas fa-door-open"></i> Unirse a Partida
                 </button>
 
-                <!-- Loading overlay para "Accediendo a la sala" -->
+                <!-- Loading "Accediendo a la sala" -->
                 <div class="loading-overlay" id="loadingOverlay">
                     <div class="loader"></div>
                     <div class="loading-text">Accediendo a la sala...</div>
                     <div class="loading-subtext">Conectando con Firebase</div>
+                    <div class="loading-room" id="loadingRoomCode"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Game Area -->
+        <!-- GAME AREA -->
         <div id="gameArea" class="game-area">
             <div class="glass-card fade-in">
-                <!-- Player Info -->
                 <div class="player-info">
                     <div class="player x" id="playerX">
                         <div class="player-symbol">X</div>
@@ -535,27 +536,22 @@
                     </div>
                 </div>
 
-                <!-- Status -->
                 <div class="status-bar waiting" id="statusBar">
                     <i class="fas fa-hourglass-half"></i> Esperando jugador...
                 </div>
 
-                <!-- Board -->
                 <div class="game-board" id="board"></div>
 
-                <!-- Reset Button -->
                 <button class="btn btn-secondary" onclick="resetGame()" id="resetBtn" style="display: none;">
                     <i class="fas fa-redo"></i> Jugar de Nuevo
                 </button>
             </div>
 
-            <!-- Chat Section -->
+            <!-- Chat -->
             <div class="chat-section" id="chatSection">
                 <div class="chat-toggle" onclick="toggleChat()">
                     <div class="chat-toggle-info">
-                        <div class="chat-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
+                        <div class="chat-icon"><i class="fas fa-comments"></i></div>
                         <div>
                             <div class="chat-title">Chat en Vivo</div>
                             <div class="chat-subtitle">Habla con tu novia 💬</div>
@@ -618,11 +614,12 @@
         import { getDatabase, ref, set, onValue, update, get, push } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
 
         // ===========================================================
-        // ✅ TU CONFIGURACIÓN DE FIREBASE (v12.11.0)
+        // ✅ TU CONFIGURACIÓN DE FIREBASE (v12.11.0) + databaseURL
         // ===========================================================
         const firebaseConfig = {
             apiKey: "AIzaSyCoOCuPsuMdEfEH0d06UOQkHfwD7ZuwGmU",
             authDomain: "juego-online-758c7.firebaseapp.com",
+            databaseURL: "https://juego-online-758c7-default-rtdb.firebaseio.com",
             projectId: "juego-online-758c7",
             storageBucket: "juego-online-758c7.firebasestorage.app",
             messagingSenderId: "962346864657",
@@ -631,11 +628,10 @@
         };
         // ===========================================================
 
-        // Inicializar Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Variables globales
+        // Variables
         let currentRoom = null;
         let mySymbol = null;
         let isMyTurn = false;
@@ -645,12 +641,11 @@
         let playerName = 'BER';
         let opponentName = 'MAT';
 
-        // Elementos del DOM
+        // DOM Elements
         const lobbyDiv = document.getElementById('lobby');
         const gameAreaDiv = document.getElementById('gameArea');
         const boardDiv = document.getElementById('board');
         const statusBar = document.getElementById('statusBar');
-        const roomIdInput = document.getElementById('roomIdInput');
         const generatedRoom = document.getElementById('generatedRoom');
         const displayedCode = document.getElementById('displayedCode');
         const copyBtn = document.getElementById('copyBtn');
@@ -658,6 +653,8 @@
         const joinBtn = document.getElementById('joinBtn');
         const joinInput = document.getElementById('joinInput');
         const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingRoomCode = document.getElementById('loadingRoomCode');
+        const creatingStatus = document.getElementById('creatingStatus');
         const chatSection = document.getElementById('chatSection');
         const chatContainer = document.getElementById('chatContainer');
         const chatMessages = document.getElementById('chatMessages');
@@ -667,7 +664,7 @@
         const notifCount = document.getElementById('notifCount');
         const modalOverlay = document.getElementById('modalOverlay');
 
-        // ==================== PARTICLES ====================
+        // Particles
         function createParticles() {
             const container = document.getElementById('particles');
             const colors = ['#e94560', '#00d9ff', '#ff2e63', '#08d9d6', '#ff6b8a'];
@@ -682,26 +679,19 @@
         }
         createParticles();
 
-        // ==================== ROOM CODE SELECTION ====================
+        // Select room code
         window.selectRoomCode = (code) => {
             document.querySelectorAll('.room-code-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            // Solo seleccionamos, no mostramos el código aún
             currentRoom = code;
         };
 
-        // ==================== CREATE GAME ====================
+        // CREATE GAME - Muestra "BER está creando..." y luego genera código
         window.createGame = async () => {
-            // Si no hay código seleccionado, generar uno por defecto
-            if(!currentRoom) {
-                currentRoom = 'BER-MAT';
-            }
+            if(!currentRoom) currentRoom = 'BER-MAT';
 
-            // Mostrar código generado con animación
-            displayedCode.textContent = currentRoom;
-            generatedRoom.classList.add('show');
-            
-            // Deshabilitar botón de crear temporalmente
+            // Mostrar estado de creación
+            creatingStatus.classList.add('show');
             createBtn.disabled = true;
             createBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
 
@@ -716,29 +706,32 @@
                     createdBy: 'BER'
                 });
 
-                // Inicializar chat para esta sala
                 await set(ref(db, 'chats/' + currentRoom), { messages: [] });
                 
-                // Iniciar UI del juego
+                // Ocultar estado y mostrar código generado
+                creatingStatus.classList.remove('show');
+                displayedCode.textContent = currentRoom;
+                generatedRoom.classList.add('show');
+                
+                // Iniciar juego
                 startGameUI('X', 'BER', 'MAT');
                 
             } catch(error) {
-                console.error('Error creando juego:', error);
-                alert('Error al crear la partida. Intenta de nuevo.');
+                console.error('Error:', error);
+                alert('Error al crear. Intenta de nuevo.');
+                creatingStatus.classList.remove('show');
                 createBtn.disabled = false;
                 createBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Crear Partida';
             }
         };
 
-        // ==================== JOIN GAME ====================
+        // JOIN GAME - Muestra "Accediendo a la sala..."
         window.joinGame = async () => {
             const code = joinInput.value.trim().toUpperCase();
-            if(!code) {
-                alert('Ingresa un código de sala');
-                return;
-            }
+            if(!code) { alert('Ingresa un código'); return; }
 
-            // Mostrar loading "Accediendo a la sala..."
+            // Mostrar loading
+            loadingRoomCode.textContent = code;
             loadingOverlay.classList.add('show');
             joinBtn.disabled = true;
             joinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando...';
@@ -749,32 +742,26 @@
 
                 if(snapshot.exists()) {
                     const data = snapshot.val();
-                    
                     if(data.status === 'waiting' || data.status === 'playing') {
                         currentRoom = code;
+                        if(data.status === 'waiting') await update(gameRef, { status: 'playing' });
                         
-                        // Si está waiting, actualizar a playing
-                        if(data.status === 'waiting') {
-                            await update(gameRef, { status: 'playing' });
-                        }
-                        
-                        // Ocultar loading y mostrar juego
                         loadingOverlay.classList.remove('show');
                         startGameUI('O', 'MAT', 'BER');
-                    } else if(data.status === 'finished') {
+                    } else {
                         loadingOverlay.classList.remove('show');
-                        showModal('⏰', 'Partida Finalizada', 'Esta sala ya terminó. Pídele a BER que cree una nueva.', code);
+                        showModal('⏰', 'Partida Finalizada', 'Esta sala ya terminó.', code);
                         resetJoinButton();
                     }
                 } else {
                     loadingOverlay.classList.remove('show');
-                    alert('❌ Sala no encontrada. Verifica el código.');
+                    alert('❌ Sala no encontrada.');
                     resetJoinButton();
                 }
             } catch(error) {
-                console.error('Error uniéndose:', error);
+                console.error('Error:', error);
                 loadingOverlay.classList.remove('show');
-                alert('Error de conexión. Revisa tu internet.');
+                alert('Error de conexión.');
                 resetJoinButton();
             }
         };
@@ -784,29 +771,24 @@
             joinBtn.innerHTML = '<i class="fas fa-door-open"></i> Unirse a Partida';
         }
 
-        // ==================== START GAME UI ====================
         function startGameUI(symbol, myName, oppName) {
             mySymbol = symbol;
             playerName = myName;
             opponentName = oppName;
 
-            // Actualizar nombres
             document.getElementById('nameX').textContent = 'X';
             document.getElementById('nameO').textContent = 'O';
             document.getElementById('chatRoomName').textContent = currentRoom;
 
-            // Transición de pantallas
             lobbyDiv.style.display = 'none';
             gameAreaDiv.style.display = 'block';
             chatSection.style.display = 'block';
 
-            // Renderizar tablero y listeners
             renderBoard();
             listenToGame();
             listenToChat();
         }
 
-        // ==================== BOARD FUNCTIONS ====================
         function renderBoard() {
             boardDiv.innerHTML = '';
             for(let i = 0; i < 9; i++) {
@@ -820,40 +802,25 @@
 
         function handleMove(index) {
             if(!gameActive || !isMyTurn) return;
-
             const gameRef = ref(db, 'games/' + currentRoom);
             get(gameRef).then((snapshot) => {
                 const data = snapshot.val();
                 if(data && data.board[index] === null && data.status === 'playing') {
                     const newBoard = [...data.board];
                     newBoard[index] = mySymbol;
-
                     const winCombo = checkWin(newBoard, mySymbol);
                     const isDraw = !newBoard.includes(null);
-
                     let nextTurn = mySymbol === 'X' ? 'O' : 'X';
-                    let nextStatus = 'playing';
-                    let winner = null;
+                    let nextStatus = 'playing', winner = null;
 
-                    if(winCombo) {
-                        nextStatus = 'finished';
-                        winner = mySymbol;
-                    } else if(isDraw) {
-                        nextStatus = 'finished';
-                        winner = 'draw';
-                    }
+                    if(winCombo) { nextStatus = 'finished'; winner = mySymbol; }
+                    else if(isDraw) { nextStatus = 'finished'; winner = 'draw'; }
 
                     update(gameRef, {
-                        board: newBoard,
-                        turn: nextTurn,
-                        status: nextStatus,
-                        winner: winner,
-                        winningCombo: winCombo
+                        board: newBoard, turn: nextTurn, status: nextStatus,
+                        winner: winner, winningCombo: winCombo
                     });
-
-                    if(winner) {
-                        setTimeout(() => showGameResult(winner, winCombo), 400);
-                    }
+                    if(winner) setTimeout(() => showGameResult(winner, winCombo), 400);
                 }
             });
         }
@@ -863,18 +830,12 @@
             onValue(gameRef, (snapshot) => {
                 const data = snapshot.val();
                 if(!data) return;
-
                 updateBoardUI(data.board, data.winningCombo);
                 updateStatus(data);
-
                 isMyTurn = (data.turn === mySymbol && data.status === 'playing');
                 gameActive = (data.status === 'playing');
-
-                // Actualizar indicadores de turno
                 document.getElementById('playerX').classList.toggle('active', data.turn === 'X' && data.status === 'playing');
                 document.getElementById('playerO').classList.toggle('active', data.turn === 'O' && data.status === 'playing');
-
-                // Mostrar botón de reinicio si terminó
                 document.getElementById('resetBtn').style.display = data.status === 'finished' ? 'block' : 'none';
             });
         }
@@ -886,9 +847,7 @@
                 if(board[index]) {
                     cell.textContent = board[index];
                     cell.classList.add(board[index].toLowerCase());
-                    if(winningCombo && winningCombo.includes(index)) {
-                        cell.classList.add('winning');
-                    }
+                    if(winningCombo && winningCombo.includes(index)) cell.classList.add('winning');
                 }
             });
         }
@@ -896,7 +855,6 @@
         function updateStatus(data) {
             statusBar.className = 'status-bar';
             statusBar.innerHTML = '';
-
             if(data.status === 'waiting') {
                 statusBar.classList.add('waiting');
                 statusBar.innerHTML = '<i class="fas fa-hourglass-half"></i> Esperando a tu novia...';
@@ -923,26 +881,15 @@
         }
 
         function checkWin(board, player) {
-            const wins = [
-                [0,1,2], [3,4,5], [6,7,8],
-                [0,3,6], [1,4,7], [2,5,8],
-                [0,4,8], [2,4,6]
-            ];
-            for(let combo of wins) {
-                if(combo.every(i => board[i] === player)) return combo;
-            }
+            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            for(let combo of wins) if(combo.every(i => board[i] === player)) return combo;
             return null;
         }
 
         function showGameResult(winner, combo) {
-            if(winner === mySymbol) {
-                showModal('🏆', '¡Victoria!', '¡Has ganado esta partida! ❤️', currentRoom);
-                celebrate();
-            } else if(winner === 'draw') {
-                showModal('🤝', 'Empate', '¡Fue una partida muy reñida!', currentRoom);
-            } else {
-                showModal('💔', 'Derrota', '¡Mejor suerte la próxima! 🥺', currentRoom);
-            }
+            if(winner === mySymbol) { showModal('🏆', '¡Victoria!', '¡Has ganado! ❤️', currentRoom); celebrate(); }
+            else if(winner === 'draw') showModal('🤝', 'Empate', '¡Partida reñida!', currentRoom);
+            else showModal('💔', 'Derrota', '¡Mejor suerte! 🥺', currentRoom);
         }
 
         function celebrate() {
@@ -950,66 +897,44 @@
             setTimeout(() => { document.body.style.background = 'var(--bg-gradient)'; }, 2200);
         }
 
-        // ==================== CHAT FUNCTIONS ====================
+        // CHAT
         window.toggleChat = () => {
             chatOpen = !chatOpen;
             chatContainer.classList.toggle('active', chatOpen);
-            if(chatOpen) {
-                unreadMessages = 0;
-                updateNotification();
-                scrollToBottom();
-            }
+            if(chatOpen) { unreadMessages = 0; updateNotification(); scrollToBottom(); }
         };
 
         function updateNotification() {
             if(unreadMessages > 0 && !chatOpen) {
                 chatNotification.style.display = 'block';
                 notifCount.textContent = unreadMessages > 9 ? '9+' : unreadMessages;
-            } else {
-                chatNotification.style.display = 'none';
-            }
+            } else chatNotification.style.display = 'none';
         }
 
         window.sendMessage = () => {
             const message = chatInput.value.trim();
             if(!message) return;
-
             const now = new Date();
-            const messageData = {
-                text: message,
-                sender: mySymbol,
-                playerName: playerName,
+            push(ref(db, 'chats/' + currentRoom + '/messages'), {
+                text: message, sender: mySymbol, playerName: playerName,
                 timestamp: now.getTime(),
-                time: now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-                date: now.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
-            };
-
-            push(ref(db, 'chats/' + currentRoom + '/messages'), messageData);
-            chatInput.value = '';
-            chatInput.focus();
+                time: now.toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'}),
+                date: now.toLocaleDateString('es-ES', {day:'2-digit',month:'short'})
+            });
+            chatInput.value = ''; chatInput.focus();
         };
-
-        chatInput.addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') sendMessage();
-        });
+        chatInput.addEventListener('keypress', e => { if(e.key==='Enter') sendMessage(); });
 
         function listenToChat() {
-            const chatRef = ref(db, 'chats/' + currentRoom + '/messages');
-            onValue(chatRef, (snapshot) => {
-                const messages = snapshot.val();
-                if(!messages) return;
-
-                const messageArray = Object.values(messages);
-                const lastMessage = messageArray[messageArray.length - 1];
-                
-                // Notificación si es mensaje nuevo y no es mío
-                if(lastMessage && lastMessage.sender !== mySymbol && !chatOpen) {
-                    unreadMessages++;
-                    updateNotification();
-                    if(navigator.vibrate) navigator.vibrate([50, 50, 50]);
+            onValue(ref(db, 'chats/' + currentRoom + '/messages'), (snapshot) => {
+                const messages = snapshot.val(); if(!messages) return;
+                const arr = Object.values(messages);
+                const last = arr[arr.length-1];
+                if(last && last.sender !== mySymbol && !chatOpen) {
+                    unreadMessages++; updateNotification();
+                    if(navigator.vibrate) navigator.vibrate([50,50,50]);
                 }
-
-                renderMessages(messageArray);
+                renderMessages(arr);
                 if(chatOpen) scrollToBottom();
             });
         }
@@ -1017,89 +942,42 @@
         function renderMessages(messages) {
             chatMessages.innerHTML = '';
             messages.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                const isMyMessage = msg.sender === mySymbol;
-                const senderLabel = msg.playerName || (msg.sender === 'X' ? 'BER' : 'MAT');
-                
-                messageDiv.className = `message ${isMyMessage ? 'my-message' : 'their-message'}`;
-                messageDiv.innerHTML = `
-                    <div class="message-sender">
-                        ${!isMyMessage ? `<i class="fas fa-user-circle"></i>` : ''}
-                        ${senderLabel}
-                    </div>
-                    <div>${escapeHtml(msg.text)}</div>
-                    <div class="message-time">${msg.date} • ${msg.time}</div>
-                `;
-                chatMessages.appendChild(messageDiv);
+                const div = document.createElement('div');
+                const isMine = msg.sender === mySymbol;
+                const sender = msg.playerName || (msg.sender==='X'?'BER':'MAT');
+                div.className = `message ${isMine?'my-message':'their-message'}`;
+                div.innerHTML = `<div class="message-sender">${!isMine?'<i class="fas fa-user-circle"></i>':''}${sender}</div><div>${escapeHtml(msg.text)}</div><div class="message-time">${msg.date} • ${msg.time}</div>`;
+                chatMessages.appendChild(div);
             });
         }
+        function scrollToBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
+        function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
 
-        function scrollToBottom() {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // ==================== COPY CODE FUNCTION ====================
+        // COPY CODE
         window.copyCode = () => {
             const code = displayedCode.textContent;
             navigator.clipboard.writeText(code).then(() => {
-                // Feedback visual
-                copyBtn.classList.add('copied');
-                copyBtn.title = '¡Copiado!';
-                
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    copyBtn.title = 'Copiar';
-                }, 2000);
+                copyBtn.classList.add('copied'); copyBtn.title = '¡Copiado!';
+                setTimeout(() => { copyBtn.classList.remove('copied'); copyBtn.title = 'Copiar'; }, 2000);
             });
         };
 
-        // ==================== MODAL FUNCTIONS ====================
-        window.showModal = (icon, title, message, code) => {
-            document.getElementById('modalIcon').textContent = icon;
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalMessage').textContent = message;
-            document.getElementById('modalCode').textContent = code ? `Sala: ${code}` : '';
+        // MODAL
+        window.showModal = (icon,title,msg,code) => {
+            document.getElementById('modalIcon').textContent=icon;
+            document.getElementById('modalTitle').textContent=title;
+            document.getElementById('modalMessage').textContent=msg;
+            document.getElementById('modalCode').textContent=code?`Sala: ${code}`:'';
             modalOverlay.classList.add('active');
         };
-
-        window.closeModal = () => {
-            modalOverlay.classList.remove('active');
-        };
+        window.closeModal = () => modalOverlay.classList.remove('active');
+        modalOverlay.addEventListener('click',e=>{if(e.target===modalOverlay)closeModal();});
 
         window.resetGame = () => {
-            if(!confirm('¿Iniciar una nueva partida en esta sala?')) return;
-
-            const gameRef = ref(db, 'games/' + currentRoom);
-            update(gameRef, {
-                board: Array(9).fill(null),
-                turn: 'X',
-                status: 'playing',
-                winner: null,
-                winningCombo: null
-            });
-            set(ref(db, 'chats/' + currentRoom + '/messages'), null);
+            if(!confirm('¿Nueva partida?')) return;
+            update(ref(db,'games/'+currentRoom),{board:Array(9).fill(null),turn:'X',status:'playing',winner:null,winningCombo:null});
+            set(ref(db,'chats/'+currentRoom+'/messages'),null);
         };
-
-        modalOverlay.addEventListener('click', (e) => {
-            if(e.target === modalOverlay) closeModal();
-        });
-
-        // ==================== UTILS ====================
-        // Prevenir zoom en inputs en móvil
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('focus', () => {
-                if(window.innerWidth < 1024) {
-                    const viewport = document.querySelector('meta[name="viewport"]');
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                }
-            });
-        });
     </script>
 </body>
 </html>
